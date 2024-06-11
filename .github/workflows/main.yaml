@@ -64,10 +64,16 @@ jobs:
           php-version: "8.3"
 
       - name: Restore the Cache
+        id: cache
         uses: actions/cache@v4.0.2
         with:
           path: ./vendor
           key: php-vendor-cache
+
+      - name: Composer Install
+        if: steps.cache.outputs.cache-hit != true
+        run: |
+          composer install
 
       - name: Create .env
         run: |
