@@ -28,7 +28,7 @@ jobs:
       - name: Cache the Vendor
         uses: actions/cache@v4.0.2
         with:
-          key: php-vendor-cache
+          key: ${{ github.sha }}-php-vendor-cache
           path: ./vendor
 
       - name: Create .env
@@ -68,7 +68,7 @@ jobs:
         uses: actions/cache@v4.0.2
         with:
           path: ./vendor
-          key: php-vendor-cache
+          key: ${{ github.sha }}-php-vendor-cache
 
       - name: Composer Install
         if: steps.cache.outputs.cache-hit != true
