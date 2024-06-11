@@ -59,6 +59,15 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+      
+      - name: Create .env
+        run: |
+          cp .env.ci .env
+          cp .env.ci .env.testing
+        
+      - name: Generate the key
+        run: |
+            php artisan key:generate
 
       - name: Migrate the Database
         run: |
