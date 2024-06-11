@@ -13,14 +13,13 @@ jobs:
     name: Build Laravel App
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: "8.3"
 
       - name: Install dependencies
         run: |
@@ -30,12 +29,11 @@ jobs:
         run: |
           cp .env.ci .env
           cp .env.ci .env.testing
-      
+
       - name: Generate the key
         run: |
           php artisan key:generate
-      
-      
+
   test:
     name: Test the Application
     runs-on: ubuntu-latest
@@ -46,36 +44,36 @@ jobs:
         ports:
           - 3306:3306
         env:
-            MYSQL_ALLOW_EMPTY_PASSWORD: false
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_USERNAME: root
-            MYSQL_DATABASE: test
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_USERNAME: root
+          MYSQL_DATABASE: test
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
-      
+          php-version: "8.3"
+
+      - name: Install dependencies
+        run: |
+          composer install
+
       - name: Create .env
         run: |
           cp .env.ci .env
           cp .env.ci .env.testing
-        
+
       - name: Generate the key
         run: |
-            php artisan key:generate
+          php artisan key:generate
 
       - name: Migrate the Database
         run: |
           php artisan migrate
-    
+
       - name: Run Unit Testing
         run: |
           php artisan test
-
-      
-   
