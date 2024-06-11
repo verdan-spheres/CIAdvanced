@@ -71,7 +71,7 @@ jobs:
           key: ${{ github.sha }}-php-vendor-cache
 
       - name: Composer Install
-        if: steps.cache.outputs.cache-hit != true
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           composer install
 
