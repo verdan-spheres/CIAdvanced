@@ -70,7 +70,7 @@ jobs:
           path: ./vendor
           key: ${{ github.sha }}-php-vendor-cache
 
-      - name: Composer Install
+      - name: Composer Installb
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           composer install
